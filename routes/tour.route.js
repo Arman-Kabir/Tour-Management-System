@@ -4,7 +4,7 @@ const tourController = require('../controllers/tour.controller');
 
 router.route('/')
     .get(tourController.getTours)
-    .post()
+    .post(tourController.createTour)
 
 
 module.exports = router;
