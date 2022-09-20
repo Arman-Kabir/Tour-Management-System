@@ -17,28 +17,20 @@ const upload = multer({
 
 
 exports.getTours = async (req, res, next) => {
-
     try {
-        // console.log(req.query);
         let filters = { ...req.query };
-        // console.log(filters);
         const queries = {};
 
         if (req.query.sort) {
-            // price,quantity -> 'price quantity'
             const sortBy = req.query.sort.split(',').join(' ');
             queries.sortBy = sortBy
-            // console.log(sortBy);
         }
         if (req.query.fields) {
             const fields = req.query.fields.split(',').join(' ');
             queries.fields = fields
-            // console.log(fields);
         }
         if (req.query.page) {
             const { page = 1, limit = 3 } = req.query;
-            // 50 products
-            // each page 10 products
             const skip = (page - 1) * parseInt(limit);
             queries.skip = skip;
             queries.limit = parseInt(limit);
