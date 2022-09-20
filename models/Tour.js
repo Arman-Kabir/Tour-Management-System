@@ -17,6 +17,7 @@ const tourSchema = mongoose.Schema({
     //     required: true,
     //     min: [0, "Price can't be negative"]
     // },
+    viewCount:Number,
     image:{
         data:Buffer,
         contentType:String

@@ -1,4 +1,4 @@
-const { getToursService, createTourService } = require("../services/tour.services")
+const { getToursService, createTourService, getTourDetailsService } = require("../services/tour.services")
 
 const multer = require('multer');
 // Storage
@@ -11,7 +11,7 @@ const Storage = multer.diskStorage({
 
 const upload = multer({
     storage: Storage
-}).single('testImage')
+}).single('image')
 
 
 
@@ -33,6 +33,7 @@ exports.getTours = async (req, res, next) => {
 };
 
 exports.createTour = async (req, res, next) => {
+    console.log(req.body);
 
     upload(req, res, (err) => {
         if (err) {
@@ -62,4 +63,22 @@ exports.createTour = async (req, res, next) => {
     //         error: error.message
     //     })
     // }
-}
+};
+
+exports.getTourDetails = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const tours = await getTourDetailsService(id);
+
+        res.status(200).json({
+            status: "Success",
+            data: tours
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Can't get data",
+            error: error.message
+        })
+    }
+};
