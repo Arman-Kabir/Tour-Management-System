@@ -93,23 +93,23 @@ exports.getTourDetails = async (req, res, next) => {
 exports.updateTour = async (req, res, next) => {
 
     // if json data is inserted without image
-    if (req.body) {
-        const { id } = req.params;
-        try {
-            const tour = await updateTourService(id, req.body);
+    // if (req.body && !req.file) {
+    //     const { id } = req.params;
+    //     try {
+    //         const tour = await updateTourService(id, req.body,{});
 
-            res.status(200).json({
-                status: "Success",
-                data: tour
-            })
-        } catch (error) {
-            res.status(400).json({
-                status: "fail",
-                message: "Can't get data",
-                error: error.message
-            })
-        }
-    }
+    //         res.status(200).json({
+    //             status: "Successfully done",
+    //             data: tour
+    //         })
+    //     } catch (error) {
+    //         res.status(400).json({
+    //             status: "fail",
+    //             message: "Can't get data",
+    //             error: error.message
+    //         })
+    //     }
+    // }
 
 
     // if data is inserted in form-data with image
@@ -120,7 +120,7 @@ exports.updateTour = async (req, res, next) => {
             const tour = await updateTourService(id, req.body, req.file);
 
             res.status(200).json({
-                status: "Successfully updated",
+                status: "Successfully updated the data",
                 data: tour
             })
         } catch (error) {

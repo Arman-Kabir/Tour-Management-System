@@ -61,14 +61,20 @@ exports.updateTourService = async (id, data, file) => {
     // }
     const tour = await Tour.updateOne({ _id: id }, { $set: data });
 
-    const tourData = await Tour.find({ _id: id });
-    tourData[0].image.data = file.filename;
-    tourData[0].save();
+    if (file) {
+        const tourData = await Tour.find({ _id: id });
+        tourData[0].image.data = file.filename;
+        tourData[0].save();
+        console.log(tourData);
+        return tourData;
+    } else {
+        return tour;
+    }
 
-    console.log(tourData);
+
     // const imageUpdate = await Tour.
 
-    return tourData;
+
 }
 
 
