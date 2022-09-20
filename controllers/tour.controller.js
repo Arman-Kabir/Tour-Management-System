@@ -83,35 +83,38 @@ exports.getTourDetails = async (req, res, next) => {
 
 exports.updateTour = async (req, res, next) => {
 
-    // if (req.body) {
-    //     const { id } = req.params;
-    //     console.log(id, req.body);
+    if (req.body) {
+        const { id } = req.params;
+        console.log(id, req.body);
 
-    //     try {
-    //         const tour = await updateTourService(id, req.body);
+        try {
+            const tour = await updateTourService(id, req.body);
 
-    //         res.status(200).json({
-    //             status: "Success",
-    //             data: tour
-    //         })
-    //     } catch (error) {
-    //         res.status(400).json({
-    //             status: "fail",
-    //             message: "Can't get data",
-    //             error: error.message
-    //         })
-    //     }
-    // }
+            res.status(200).json({
+                status: "Success",
+                data: tour
+            })
+        } catch (error) {
+            res.status(400).json({
+                status: "fail",
+                message: "Can't get data",
+                error: error.message
+            })
+        }
+    }
 
 
     
         // console.log(id,req.file);
-        upload(req, res, (err) => {
+        upload(req, res, async (err) => {
             if (err) {
                 console.log(err);
             } else {
                 // console.log(req.body);
-                console.log(req.file);
+                const { id } = req.params;
+                // console.log(req.file);
+                const tour = await updateTourService(id,req.file);
+                console.log(tour);
                 // createTourService(req.body, req.file)
                 //     .then(() => res.send("Successfully uploaded"))
                 //     .catch(err => console.log(err))
