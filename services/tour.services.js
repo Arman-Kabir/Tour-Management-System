@@ -1,4 +1,5 @@
 
+const { updateOne } = require('../models/Tour');
 const Tour = require('../models/Tour');
 
 
@@ -13,8 +14,8 @@ exports.getToursService = async () => {
 };
 
 
-exports.createTourService = async (data,file) => {
-    console.log('data===',data);
+exports.createTourService = async (data, file) => {
+    console.log('data===', data);
 
     const tour = new Tour({
         name: data.name,
@@ -33,16 +34,23 @@ exports.getTourDetailsService = async (id) => {
 
     const tour = await Tour.find({ _id: id });
     let viewCount = await parseInt(tour[0].viewCount);
-    
-    viewCount = viewCount + 1;   
+
+    viewCount = viewCount + 1;
     tour[0].viewCount = viewCount;
     tour[0].save();
 
-    console.log(tour,viewCount);
+    console.log(tour, viewCount);
     // 
     // console.log(tour);
     // await tour.save();
 
 
     return { tour, viewCount };
+}
+
+exports.updateTourService = async (id, data) => {
+    console.log(id, data);
+    const tour = await Tour.updateOne({ _id: id }, {$set:data});
+
+    return tour;
 }

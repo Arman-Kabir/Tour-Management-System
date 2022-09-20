@@ -1,4 +1,4 @@
-const { getToursService, createTourService, getTourDetailsService } = require("../services/tour.services")
+const { getToursService, createTourService, getTourDetailsService, updateTourService } = require("../services/tour.services")
 
 const multer = require('multer');
 // Storage
@@ -33,13 +33,14 @@ exports.getTours = async (req, res, next) => {
 };
 
 exports.createTour = async (req, res, next) => {
-    // console.log(req.body);
-    // console.log(req.file);
+
     upload(req, res, (err) => {
         if (err) {
             console.log(err);
         } else {
-            createTourService(req.body,req.file)
+            // console.log(req.body);
+            // console.log(req.file);
+            createTourService(req.body, req.file)
                 .then(() => res.send("Successfully uploaded"))
                 .catch(err => console.log(err))
         }
@@ -78,4 +79,45 @@ exports.getTourDetails = async (req, res, next) => {
             error: error.message
         })
     }
+};
+
+exports.updateTour = async (req, res, next) => {
+
+    // if (req.body) {
+    //     const { id } = req.params;
+    //     console.log(id, req.body);
+
+    //     try {
+    //         const tour = await updateTourService(id, req.body);
+
+    //         res.status(200).json({
+    //             status: "Success",
+    //             data: tour
+    //         })
+    //     } catch (error) {
+    //         res.status(400).json({
+    //             status: "fail",
+    //             message: "Can't get data",
+    //             error: error.message
+    //         })
+    //     }
+    // }
+
+
+    
+        // console.log(id,req.file);
+        upload(req, res, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                // console.log(req.body);
+                console.log(req.file);
+                // createTourService(req.body, req.file)
+                //     .then(() => res.send("Successfully uploaded"))
+                //     .catch(err => console.log(err))
+            }
+        })
+    
+
+
 };
