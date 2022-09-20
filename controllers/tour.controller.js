@@ -36,7 +36,7 @@ exports.getTours = async (req, res, next) => {
             queries.limit = parseInt(limit);
         }
 
-        const tours = await getToursService(filters,queries);
+        const tours = await getToursService(filters, queries);
 
         res.status(200).json({
             status: "Success",
@@ -56,7 +56,7 @@ exports.createTour = async (req, res, next) => {
     upload(req, res, async (error) => {
         try {
             const result = await createTourService(req.body, req.file);
-            // console.log(req.body);
+            // console.log(req.body,"----",req.file);
             res.status(200).json({
                 status: "Success",
                 message: "Data inserted successfully",
@@ -92,10 +92,9 @@ exports.getTourDetails = async (req, res, next) => {
 
 exports.updateTour = async (req, res, next) => {
 
+    // if json data is inserted without image
     if (req.body) {
         const { id } = req.params;
-        console.log(id, req.file[0]);
-
         try {
             const tour = await updateTourService(id, req.body);
 
@@ -112,28 +111,26 @@ exports.updateTour = async (req, res, next) => {
         }
     }
 
-    if (req.file) {
-        console.log("hello")
-    }
 
-    // console.log(id,req.file);
-    // upload(req, res, async (err) => {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         // console.log(req.body);
-    //         const { id } = req.params;
-    //         // console.log(req.file);
-    //         const tour = await updateTourService(id,req.file);
-    //         console.log(tour);
-    //         // createTourService(req.body, req.file)
-    //         //     .then(() => res.send("Successfully uploaded"))
-    //         //     .catch(err => console.log(err))
-    //     }
-    // })
+    // if data is inserted in form-data with image
+    upload(req, res, async (error) => {
 
+        try {
+            const { id } = req.params;
+            const tour = await updateTourService(id, req.body, req.file);
 
-
+            res.status(200).json({
+                status: "Successfully updated",
+                data: tour
+            })
+        } catch (error) {
+            res.status(400).json({
+                status: "fail",
+                message: "Can't update data",
+                error: error.message
+            })
+        }
+    })
 };
 
 
