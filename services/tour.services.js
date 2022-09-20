@@ -13,13 +13,13 @@ exports.getToursService = async () => {
 };
 
 
-exports.createTourService = async (data) => {
+exports.createTourService = async (data,file) => {
     console.log('data===',data);
 
     const tour = new Tour({
         name: data.name,
         image: {
-            data: data.image,
+            data: file.filename,
             contentType: 'image/png'
         },
         viewCount: data.viewCount

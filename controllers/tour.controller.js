@@ -33,20 +33,17 @@ exports.getTours = async (req, res, next) => {
 };
 
 exports.createTour = async (req, res, next) => {
-    console.log(req.body);
-
+    // console.log(req.body);
+    // console.log(req.file);
     upload(req, res, (err) => {
         if (err) {
             console.log(err);
         } else {
-            createTourService(req.body)
+            createTourService(req.body,req.file)
                 .then(() => res.send("Successfully uploaded"))
                 .catch(err => console.log(err))
         }
     })
-
-
-
     // try {
     //     const result = await createTourService(req.body);
     //     console.log(req.body);
