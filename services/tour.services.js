@@ -1,10 +1,4 @@
-
-const { updateOne } = require('../models/Tour');
 const Tour = require('../models/Tour');
-
-
-
-
 
 
 exports.getToursService = async () => {
@@ -15,36 +9,37 @@ exports.getToursService = async () => {
 
 
 exports.createTourService = async (data, file) => {
-    console.log('data===', data);
+    // console.log('data===', data);
 
     const tour = new Tour({
         name: data.name,
+        description: data.description,
         image: {
             data: file.filename,
             contentType: 'image/png'
         },
-        viewCount: data.viewCount
+        viewCount: data.viewCount,
+        price: data.price
     })
-    tour.save();
-
-    return tour;
+    // tour.save();
+    const createdTour = await Tour.create(tour);
+    return createdTour;
 };
 
 exports.getTourDetailsService = async (id) => {
-
     const tour = await Tour.find({ _id: id });
-    let viewCount = await parseInt(tour[0].viewCount);
+
+    let viewCount;
+    if (tour[0].viewCount) {
+        viewCount = await parseInt(tour[0].viewCount);
+    } else {
+        viewCount = 0
+    }
 
     viewCount = viewCount + 1;
     tour[0].viewCount = viewCount;
     tour[0].save();
-
-    console.log(tour, viewCount);
-    // 
-    // console.log(tour);
-    // await tour.save();
-
-
+    
     return { tour, viewCount };
 }
 

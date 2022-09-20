@@ -8,16 +8,19 @@ const tourSchema = mongoose.Schema({
         trim: true,
         unique: [true, "Name must be unique"],
     },
-    // description: {
-    //     type: String,
-    //     required: true
-    // },
-    // price: {
-    //     type: Number,
-    //     required: true,
-    //     min: [0, "Price can't be negative"]
-    // },
-    viewCount:Number,
+    description: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: [0, "Price can't be negative"]
+    },
+    viewCount:{
+        type:Number,
+        // required:true
+    },
     image:{
         data:Buffer,
         contentType:String

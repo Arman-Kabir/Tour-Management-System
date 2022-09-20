@@ -34,33 +34,38 @@ exports.getTours = async (req, res, next) => {
 
 exports.createTour = async (req, res, next) => {
 
-    upload(req, res, (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            // console.log(req.body);
-            console.log(req.file);
-            createTourService(req.body, req.file)
-                .then(() => res.send("Successfully uploaded"))
-                .catch(err => console.log(err))
-        }
-    })
-    // try {
-    //     const result = await createTourService(req.body);
-    //     console.log(req.body);
+    // upload(req, res, (err) => {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         // console.log(req.body);
+    //         console.log(req.file);
+    //         createTourService(req.body, req.file)
+    //             .then(() => res.send("Successfully uploaded"))
+    //             .catch(err => console.log(err))
+    //     }
+    // })
 
-    //     res.status(200).json({
-    //         status: "Success",
-    //         message:"Data inserted successfully",
-    //         data: result
-    //     })
-    // } catch (error) {
-    //     res.status(400).json({
-    //         status: "fail",
-    //         message: "Data is not inserted",
-    //         error: error.message
-    //     })
-    // }
+    upload(req, res, async (error) => {
+        try {
+            const result = await createTourService(req.body, req.file);
+            // console.log(req.body);
+            res.status(200).json({
+                status: "Success",
+                message: "Data inserted successfully",
+                data: result
+            })
+        } catch (error) {
+            res.status(400).json({
+                status: "fail",
+                message: "Data is not inserted",
+                error: error.message
+            })
+        }
+
+    })
+
+
 };
 
 exports.getTourDetails = async (req, res, next) => {
@@ -103,26 +108,26 @@ exports.updateTour = async (req, res, next) => {
         }
     }
 
-    if(req.file){
+    if (req.file) {
         console.log("hello")
     }
-    
-        // console.log(id,req.file);
-        // upload(req, res, async (err) => {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         // console.log(req.body);
-        //         const { id } = req.params;
-        //         // console.log(req.file);
-        //         const tour = await updateTourService(id,req.file);
-        //         console.log(tour);
-        //         // createTourService(req.body, req.file)
-        //         //     .then(() => res.send("Successfully uploaded"))
-        //         //     .catch(err => console.log(err))
-        //     }
-        // })
-    
+
+    // console.log(id,req.file);
+    // upload(req, res, async (err) => {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         // console.log(req.body);
+    //         const { id } = req.params;
+    //         // console.log(req.file);
+    //         const tour = await updateTourService(id,req.file);
+    //         console.log(tour);
+    //         // createTourService(req.body, req.file)
+    //         //     .then(() => res.send("Successfully uploaded"))
+    //         //     .catch(err => console.log(err))
+    //     }
+    // })
+
 
 
 };
