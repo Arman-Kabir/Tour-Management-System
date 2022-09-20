@@ -23,8 +23,9 @@ const tourSchema = mongoose.Schema({
     },
     image:{
         data:Buffer,
-        contentType:String
-    }
+        contentType:String,
+        // required:true
+    },
 }, {
     timestamps: true
 });

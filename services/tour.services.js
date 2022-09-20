@@ -59,13 +59,13 @@ exports.updateTourService = async (id, data, file) => {
     // const imageFile  = {
     //     image:file.filename,
     // }
-    const tour = await Tour.updateOne({ _id: id }, { $set: data });
+    const tour = await Tour.updateOne({ _id: id }, { $set: data }, { runValidators: true });
 
     if (file) {
         const tourData = await Tour.find({ _id: id });
         tourData[0].image.data = file.filename;
         tourData[0].save();
-        console.log(tourData);
+        // console.log(tourData);
         return tourData;
     } else {
         return tour;

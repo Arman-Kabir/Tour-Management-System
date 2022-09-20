@@ -55,6 +55,7 @@ exports.createTour = async (req, res, next) => {
 
     upload(req, res, async (error) => {
         try {
+            
             const result = await createTourService(req.body, req.file);
             // console.log(req.body,"----",req.file);
             res.status(200).json({
@@ -63,6 +64,9 @@ exports.createTour = async (req, res, next) => {
                 data: result
             })
         } catch (error) {
+            if(error.message=="Cannot read properties of undefined (reading 'filename')"){
+                error.message="Please provide an image for the tour";
+            }
             res.status(400).json({
                 status: "fail",
                 message: "Data is not inserted",
