@@ -49,8 +49,8 @@ exports.getTourDetailsService = async (id) => {
 }
 
 exports.updateTourService = async (id, data) => {
-    console.log(id, data);
-    const tour = await Tour.updateOne({ _id: id }, {$set:data});
+    // console.log(id, data);
+    // const tour = await Tour.updateOne({ _id: id }, {$set:data});
 
-    return tour;
+    // return tour;
 }

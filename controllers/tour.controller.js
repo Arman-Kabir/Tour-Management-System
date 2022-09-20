@@ -39,7 +39,7 @@ exports.createTour = async (req, res, next) => {
             console.log(err);
         } else {
             // console.log(req.body);
-            // console.log(req.file);
+            console.log(req.file);
             createTourService(req.body, req.file)
                 .then(() => res.send("Successfully uploaded"))
                 .catch(err => console.log(err))
@@ -85,7 +85,7 @@ exports.updateTour = async (req, res, next) => {
 
     if (req.body) {
         const { id } = req.params;
-        console.log(id, req.body);
+        console.log(id, req.file[0]);
 
         try {
             const tour = await updateTourService(id, req.body);
@@ -103,23 +103,25 @@ exports.updateTour = async (req, res, next) => {
         }
     }
 
-
+    if(req.file){
+        console.log("hello")
+    }
     
         // console.log(id,req.file);
-        upload(req, res, async (err) => {
-            if (err) {
-                console.log(err);
-            } else {
-                // console.log(req.body);
-                const { id } = req.params;
-                // console.log(req.file);
-                const tour = await updateTourService(id,req.file);
-                console.log(tour);
-                // createTourService(req.body, req.file)
-                //     .then(() => res.send("Successfully uploaded"))
-                //     .catch(err => console.log(err))
-            }
-        })
+        // upload(req, res, async (err) => {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         // console.log(req.body);
+        //         const { id } = req.params;
+        //         // console.log(req.file);
+        //         const tour = await updateTourService(id,req.file);
+        //         console.log(tour);
+        //         // createTourService(req.body, req.file)
+        //         //     .then(() => res.send("Successfully uploaded"))
+        //         //     .catch(err => console.log(err))
+        //     }
+        // })
     
 
 
