@@ -1,8 +1,8 @@
 const Tour = require('../models/Tour');
 
 
-exports.getToursService = async () => {
-    const tours = await Tour.find({});
+exports.getToursService = async (filters,queries) => {
+    const tours = await Tour.find({}).select(queries.fields).sort(queries.sortBy);
 
     return tours;
 };
@@ -43,12 +43,18 @@ exports.getTourDetailsService = async (id) => {
     return { tour, viewCount };
 }
 
+
+
 exports.updateTourService = async (id, data) => {
     // console.log(id, data);
     // const tour = await Tour.updateOne({ _id: id }, {$set:data});
 
     // return tour;
 }
+
+
+
+
 
 
 exports.getTrendingToursService = async () => {

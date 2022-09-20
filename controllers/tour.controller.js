@@ -17,8 +17,30 @@ const upload = multer({
 
 
 exports.getTours = async (req, res, next) => {
+
     try {
-        const tours = await getToursService();
+        console.log(req.query);
+        let filters = { ...req.query };
+
+        console.log(filters);
+        const queries = {};
+
+
+        if (req.query.sort) {
+            // price,quantity -> 'price quantity'
+            const sortBy = req.query.sort.split(',').join(' ');
+            queries.sortBy = sortBy
+            console.log(sortBy);
+        }
+        if (req.query.fields) {
+            const fields = req.query.fields.split(',').join(' ');
+            queries.fields = fields
+            console.log(fields);
+        }
+
+
+
+        const tours = await getToursService(filters,queries);
 
         res.status(200).json({
             status: "Success",
@@ -117,6 +139,11 @@ exports.updateTour = async (req, res, next) => {
 
 
 };
+
+
+
+
+
 
 exports.getTrendingTours = async (req, res, next) => {
     try {
