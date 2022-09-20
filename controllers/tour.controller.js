@@ -1,6 +1,7 @@
-const { getToursService, createTourService, getTourDetailsService, updateTourService } = require("../services/tour.services")
+const { getToursService, createTourService, getTourDetailsService, updateTourService, getTrendingToursService, getCheapestToursService } = require("../services/tour.services")
 
 const multer = require('multer');
+
 // Storage
 const Storage = multer.diskStorage({
     destination: 'uploads',
@@ -34,18 +35,6 @@ exports.getTours = async (req, res, next) => {
 
 exports.createTour = async (req, res, next) => {
 
-    // upload(req, res, (err) => {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         // console.log(req.body);
-    //         console.log(req.file);
-    //         createTourService(req.body, req.file)
-    //             .then(() => res.send("Successfully uploaded"))
-    //             .catch(err => console.log(err))
-    //     }
-    // })
-
     upload(req, res, async (error) => {
         try {
             const result = await createTourService(req.body, req.file);
@@ -62,10 +51,7 @@ exports.createTour = async (req, res, next) => {
                 error: error.message
             })
         }
-
     })
-
-
 };
 
 exports.getTourDetails = async (req, res, next) => {
@@ -130,4 +116,36 @@ exports.updateTour = async (req, res, next) => {
 
 
 
+};
+
+exports.getTrendingTours = async (req, res, next) => {
+    try {
+        const tours = await getTrendingToursService();
+        res.status(200).json({
+            status: "Top 3 most viewed Tours",
+            data: tours
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Can't get data",
+            error: error.message
+        })
+    }
+};
+
+exports.getCheapestTours = async (req, res, next) => {
+    try {
+        const tours = await getCheapestToursService();
+        res.status(200).json({
+            status: "Top 3 most cheapest Tours",
+            data: tours
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Can't get data",
+            error: error.message
+        })
+    }
 };

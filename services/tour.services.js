@@ -39,7 +39,7 @@ exports.getTourDetailsService = async (id) => {
     viewCount = viewCount + 1;
     tour[0].viewCount = viewCount;
     tour[0].save();
-    
+
     return { tour, viewCount };
 }
 
@@ -49,3 +49,14 @@ exports.updateTourService = async (id, data) => {
 
     // return tour;
 }
+
+
+exports.getTrendingToursService = async () => {
+    const tours = await Tour.find({}).sort({ viewCount: -1 }).limit(3);
+    return tours;
+};
+
+exports.getCheapestToursService = async () => {
+    const tours = await Tour.find({}).sort({ price: 1 }).limit(3);
+    return tours;
+};
