@@ -1,19 +1,10 @@
 {
-    "version": 1,
+    "version": 1.0,
+    "name": "tour-management-system-assignment2",
     "builds": [
-        {
-            "src": "./server.js",
-            "use": "@vercel/node"
-        }
+       { "src": "server.js", "use": "@vercel/node" }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        }
+       { "src": "/(.*)", "dest": "/server.js" }
     ]
-}
-
-
-
-
+ }
