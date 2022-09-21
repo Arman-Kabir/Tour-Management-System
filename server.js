@@ -9,7 +9,7 @@ const app = require("./app");
 const Tour = require('./models/Tour');
 
 // database connection
-mongoose.connect(process.env.DATABASE_LOCAL).then(() => {
+mongoose.connect(process.env.DATABASE).then(() => {
     console.log(`Database Connection is Successful`.red.bold);
 });
 
